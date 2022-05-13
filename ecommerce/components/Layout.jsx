@@ -1,9 +1,25 @@
-import React from 'react'
+import React from 'react';
+import Head from 'next/head';
+import Navbar from './Navbar';
+import Footer from './Footer';
 
-const Layour = () => {
+const Layout = ({ children }) => {
   return (
-    <div>Layour</div>
+    <div className="layout">
+      <Head>
+        <title>Matthew Dev Store</title>
+      </Head>
+      <header>
+        <Navbar />
+      </header>
+      <main className="main-container">
+        { children }
+      </main>
+      <footer>
+        <Footer />
+      </footer>
+    </div>
   )
 }
 
-export default Layour
+export default Layout
