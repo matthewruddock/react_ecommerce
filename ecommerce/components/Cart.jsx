@@ -12,22 +12,22 @@ const Cart = () => {
   const cartRef = useRef();
   const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuanitity, onRemove} = useStateContext();
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     const stripe = await getStripe();
-    //STRIPE API
+
     const response = await fetch('/api/stripe', {
       method: 'POST',
       headers: {
-        'Content-Type' : 'application/json',
+        'Content-Type': 'application/json',
       },
-      body: JSOPN.stringify(cartItems),
+      body: JSON.stringify(cartItems),
     });
 
-    if(resposne.statusCode === 500) return;
-
+    if(response.statusCode === 500) return;
+    
     const data = await response.json();
 
-    toast.loading('Redirecting..');
+    toast.loading('Redirecting...');
 
     stripe.redirectToCheckout({ sessionId: data.id });
   }
